@@ -1,0 +1,70 @@
+.popup {
+  position: absolute;
+  width: 70vw;
+  height: 60vh;
+  background: white;
+  border-radius: 50px;
+  top: 50%;
+  overflow-y: scroll;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+}
+.popup::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.popup::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+  margin: 45px;
+}
+
+/* Handle */
+.popup::-webkit-scrollbar-thumb {
+  background: #303960;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+.popup::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.btn-submit {
+  background-color: #f8b24f;
+  left: 50%;
+  transform: translate(-50%);
+  top: 72vh;
+  border: none;
+  border-radius: 50%;
+  font-family: "Poppins";
+  font-size: 18px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  position: fixed;
+}
+.popup h3 {
+  font-size: 18px;
+  margin: 0;
+  margin-top: 10px;
+}
+.popup h4 {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 748px) {
+  .popup {
+    padding: 20px 30px;
+  }
+  .popup h3 {
+    font-size: 14px;
+  }
+}
