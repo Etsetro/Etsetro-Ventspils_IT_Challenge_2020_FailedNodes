@@ -1,7 +1,6 @@
 import styles from "../styles/popup.module.css";
 
-export default function Popup({ values, setIsOpen, isOpen }) {
-  let newChart = new Chart();
+export default function Popup({ values }) {
   return (
     <div className={styles.popup}>
       <div className="row">
