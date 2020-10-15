@@ -1,20 +1,16 @@
 import styles from "../styles/simulation.module.css";
 import Popup from "./Popup";
+import { Line } from "react-chartjs-2";
+import { useState } from "react";
 
-export default function Simulation({
-  values,
-  simulationStarted,
-  isOpen,
-  setIsOpen,
-}) {
+export default function Simulation({ values, isOpen, setIsOpen, chartData }) {
   return (
     <section className={styles.simulation}>
-      <div></div>
-
+      <Line data={chartData}></Line>
       {!isNaN(values.gMiYear) && (
         <button
           className={styles["btn-submit"]}
-          onClick={(e) => {
+          onClick={() => {
             setIsOpen(!isOpen);
             console.log(isOpen);
           }}
