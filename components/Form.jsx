@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import styles from "../styles/simulation.module.css";
+import drawChart from "../public/drawChart";
 
-export default function Form({ setValues, values, setSimulationStarted }) {
+export default function Form({ setValues, values, setChartData }) {
   const { register, handleSubmit, errors } = useForm();
 
   let startYear = 1975;
@@ -49,6 +50,7 @@ export default function Form({ setValues, values, setSimulationStarted }) {
       parseInt(e.realtimeLength),
       parseInt(e.carCount)
     );
+    drawChart(parseInt(e.realtimeLength), parseInt(values.gKmYear));
     console.log(values);
   }
 
