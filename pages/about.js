@@ -4,9 +4,9 @@ export default function About() {
   return (
     <div className={styles.about}>
       <div className={styles["top-container"]}>
-        <img src="/laptop-code-solid.svg" className={styles.computer} />
-        <img src="/laptop-code-solid.svg" className={styles.computer} />
-        <img src="/laptop-code-solid.svg" className={styles.computer} />
+        <img src="/icons/laptop-code-solid.svg" className={styles.computer} />
+        <img src="/icons/laptop-code-solid.svg" className={styles.computer} />
+        <img src="/icons/laptop-code-solid.svg" className={styles.computer} />
       </div>
       <div className={styles["bottom-container"]}>
         <div className={styles.content}>
@@ -29,9 +29,9 @@ export default function About() {
         <div className={styles.content}>
           <h1>Used technologies</h1>
           <div className={styles.images}>
-            <img src="nodejs.svg" className={styles.techimg} />
-            <img src="nextjs.svg" className={styles.techimg} />
-            <img src="react-brands.svg" className={styles.techimg} />
+            <img src="/icons/nodejs.svg" className={styles.techimg} />
+            <img src="/icons/nextjs.svg" className={styles.techimg} />
+            <img src="/icons/react-brands.svg" className={styles.techimg} />
           </div>
         </div>
       </div>
