@@ -90,7 +90,7 @@ export default function Form({ setValues, values, setSimulationStarted }) {
           {errors.roadLength && <div className={styles.error}></div>}
         </div>
         <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>Real time length (yr.)</label>
+          <label className={styles["form-label"]}>Real time length (yr)</label>
           <input
             name="realtimeLength"
             type="number"
@@ -100,7 +100,7 @@ export default function Form({ setValues, values, setSimulationStarted }) {
           {errors.realtimeLength && <div className={styles.error}></div>}
         </div>
         <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>Vehicle count (n/km)</label>
+          <label className={styles["form-label"]}>Vehicle count (n/h)</label>
           <input
             name="carCount"
             type="number"
