@@ -62,7 +62,7 @@
 }
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
   margin: 60px 0;
 }
 .form-flex {
@@ -81,15 +81,18 @@
 .btn-submit {
   background-color: #f8b24f;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: "Poppins";
   font-size: 18px;
   font-weight: 700;
   outline: none;
   cursor: pointer;
-  width: 160px;
-  height: 60px;
-  margin: auto;
+  padding: 15px 50px;
+  box-shadow: 0px 0px 0px 0px #f8b24f;
+  transition: 0.3s;
+}
+.btn-submit:hover {
+  box-shadow: 0px 10px 0px 0px #ca9141;
 }
 
 .overlay {
@@ -110,6 +113,12 @@
   position: relative;
   overflow: hidden;
 }
+
+.simulation {
+  display: flex;
+  flex-direction: column;
+}
+
 div.error {
   position: relative;
   background: rgb(226, 70, 70);
@@ -138,18 +147,32 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
     font-size: 14px;
   }
   .btn-submit {
-    width: 120px;
-    height: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
   }
   .form-label {
     font-size: 14px;
   }
   .form-widget {
     padding: 10px 15px;
+    width: 100%;
+  }
+  .form-dropdown {
+    height: 47px;
   }
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin: 60px 0;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    margin: 0;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    width: 75%;
+    margin: auto;
+  }
+  .simulation,
+  .form {
+    flex: 1 1 600px;
+    padding: 30px;
+    width: 100px;
   }
 }
