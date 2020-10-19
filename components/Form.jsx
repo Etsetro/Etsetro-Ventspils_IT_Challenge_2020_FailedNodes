@@ -2,7 +2,12 @@ import { useForm } from "react-hook-form";
 import styles from "../styles/simulation.module.css";
 import { useEffect } from "react";
 
-export default function Form({ setValues, values, setChartData }) {
+export default function Form({
+  setValues,
+  values,
+  setChartData,
+  setAnimationComplete,
+}) {
   useEffect(() => {
     if (values.realtimeLength) {
       getChartData(values.realtimeLength, values.tYear);
@@ -60,6 +65,7 @@ export default function Form({ setValues, values, setChartData }) {
 
         if (counter === 40) {
           clearInterval(drawChart);
+          setAnimationComplete(true);
         }
       }, 1000);
     }
@@ -99,6 +105,7 @@ export default function Form({ setValues, values, setChartData }) {
   }
 
   function submitHandler(formData) {
+    setAnimationComplete(false);
     const fetchData = fetch("/data.csv");
 
     fetchData.then((e) => {
