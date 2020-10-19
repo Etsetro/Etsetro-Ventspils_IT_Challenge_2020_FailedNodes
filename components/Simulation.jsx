@@ -8,7 +8,7 @@ export default function Simulation({
   setIsOpen,
 }) {
   return (
-    <section className={styles.simulation}>
+    <section className={styles.simulation} id="simulation">
       <div></div>
 
       {!isNaN(values.gMiYear) && (
