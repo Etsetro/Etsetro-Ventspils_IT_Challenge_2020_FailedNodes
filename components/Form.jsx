@@ -5,7 +5,6 @@ import { useEffect } from "react";
 export default function Form({ setValues, values, setChartData }) {
   useEffect(() => {
     if (values.realtimeLength) {
-      console.log(values);
       getChartData(values.realtimeLength, values.tYear);
     }
   }, [values]);
@@ -54,20 +53,17 @@ export default function Form({ setValues, values, setChartData }) {
           Math.floor(dataIntervalValue * (counter + 1) * 100) / 100
         );
         chart.labels.push(Math.floor(dataIntervalTime * (counter + 1)));
-
         counter++;
+
         setChartData({});
         setChartData(chart);
 
-        console.log(chart.datasets[0].data, chart.labels);
         if (counter === 40) {
           clearInterval(drawChart);
         }
       }, 1000);
     }
   }
-
-  function drawChart(value, time) {}
 
   function calculateEmissions(
     fullData,
