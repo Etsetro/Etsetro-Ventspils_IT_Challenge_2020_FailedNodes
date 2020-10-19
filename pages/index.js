@@ -6,7 +6,7 @@ import Simulation from "../components/Simulation";
 export default function Home() {
   const [values, setValues] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [chartData, setChartData] = useState(null);
+  const [chartData, setChartData] = useState({});
   return (
     <section
       className={isOpen ? styles.noscroll : styles["simulation-section"]}

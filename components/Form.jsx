@@ -1,8 +1,14 @@
 import { useForm } from "react-hook-form";
 import styles from "../styles/simulation.module.css";
-import drawChart from "../public/drawChart";
+import { useEffect } from "react";
 
 export default function Form({ setValues, values, setChartData }) {
+  useEffect(() => {
+    if (values.realtimeLength) {
+      console.log(values);
+      getChartData(values.realtimeLength, values.tYear);
+    }
+  }, [values]);
   const { register, handleSubmit, errors } = useForm();
 
   let startYear = 1975;
@@ -10,48 +16,107 @@ export default function Form({ setValues, values, setChartData }) {
     .fill(1)
     .map(() => startYear++);
 
-  function calculateEmissions(year, roadLength, realtimeLength, carCount) {
-    fetch("/data.csv").then((e) => {
-      e.text().then((e) => {
-        const textLines = e.split(/\r\n|\n/);
-        let emissionByYear = new Array(textLines.length);
-        textLines.forEach((data, index) => {
-          let rowValues = data.split(",");
-          emissionByYear[index] = [
-            parseInt(rowValues[0]),
-            parseInt(rowValues[2]),
-          ];
-        });
-        for (let i = 0; i < emissionByYear.length; i++) {
-          if (emissionByYear[i][0] === year) {
-            const gramsKmYear = emissionByYear[i][1] * 1.609344 * carCount;
-            const tonPerYear = (gramsKmYear * roadLength * 365 * 24) / 1000000;
-            const totalEmissionTons = tonPerYear * realtimeLength;
-            const treesRequired = (totalEmissionTons * 1000000) / 21;
-            const dataObj = {
-              gMiYear: emissionByYear[i][1],
-              gKmYear: gramsKmYear,
-              tYear: tonPerYear,
-              total: totalEmissionTons,
-              treesRequired: treesRequired,
-              treeSpaceRequired: (treesRequired * 27) / 10000,
-            };
-            setValues(dataObj);
-          }
+  function getChartData(length, emission) {
+    let chart = {
+      labels: [],
+      datasets: [
+        {
+          label: "Emission",
+          fill: true,
+          key: [],
+          lineTension: 0.1,
+          backgroundColor: "rgba(48, 57, 96, 0.45)",
+          borderColor: "#303960",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: " #303960",
+          pointBackgroundColor: "#303960",
+          pointBorderWidth: 2,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: " #f8b24f",
+          pointHoverBorderColor: " #f8b24f",
+          pointHoverBorderWidth: 2,
+          pointRadius: 2,
+          pointHitRadius: 10,
+          data: [],
+        },
+      ],
+    };
+    const dataIntervalValue = emission / 40;
+    const dataIntervalTime = (365 * length) / 40;
+    if (!isNaN(emission) && !isNaN(length)) {
+      let counter = 0;
+
+      let drawChart = setInterval(() => {
+        chart.datasets[0].data.push(
+          Math.floor(dataIntervalValue * (counter + 1) * 100) / 100
+        );
+        chart.labels.push(Math.floor(dataIntervalTime * (counter + 1)));
+
+        counter++;
+        setChartData({});
+        setChartData(chart);
+
+        console.log(chart.datasets[0].data, chart.labels);
+        if (counter === 40) {
+          clearInterval(drawChart);
         }
-      });
-    });
+      }, 1000);
+    }
   }
 
-  function submitHandler(e) {
-    calculateEmissions(
-      parseInt(e.prodDate),
-      parseInt(e.roadLength),
-      parseInt(e.realtimeLength),
-      parseInt(e.carCount)
-    );
-    drawChart(parseInt(e.realtimeLength), parseInt(values.gKmYear));
-    console.log(values);
+  function drawChart(value, time) {}
+
+  function calculateEmissions(
+    fullData,
+    year,
+    roadLength,
+    realtimeLength,
+    carCount
+  ) {
+    const textLines = fullData.split(/\r\n|\n/);
+    let emissionByYear = new Array(textLines.length);
+    textLines.forEach((data, index) => {
+      let rowValues = data.split(",");
+      emissionByYear[index] = [parseInt(rowValues[0]), parseInt(rowValues[2])];
+    });
+    for (let i = 0; i < emissionByYear.length; i++) {
+      if (emissionByYear[i][0] === year) {
+        const gramsKmYear = emissionByYear[i][1] * 1.609344 * carCount;
+        const tonPerYear = (gramsKmYear * roadLength * 365 * 24) / 1000000;
+        const totalEmissionTons = tonPerYear * realtimeLength;
+        const treesRequired = (totalEmissionTons * 1000000) / 21;
+        const dataObj = {
+          gMiYear: emissionByYear[i][1],
+          gKmYear: gramsKmYear,
+          tYear: tonPerYear,
+          total: totalEmissionTons,
+          treesRequired: treesRequired,
+          treeSpaceRequired: (treesRequired * 27) / 10000,
+          realtimeLength: realtimeLength,
+        };
+        return dataObj;
+      }
+    }
+  }
+
+  function submitHandler(formData) {
+    const fetchData = fetch("/data.csv");
+
+    fetchData.then((e) => {
+      e.text().then((fullData) => {
+        let dataObj = calculateEmissions(
+          fullData,
+          parseInt(formData.prodDate),
+          parseInt(formData.roadLength),
+          parseInt(formData.realtimeLength),
+          parseInt(formData.carCount)
+        );
+        setValues(dataObj);
+      });
+    });
   }
 
   return (
