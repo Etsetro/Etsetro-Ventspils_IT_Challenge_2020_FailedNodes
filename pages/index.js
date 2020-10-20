@@ -4,9 +4,10 @@ import Form from "../components/Form";
 import Simulation from "../components/Simulation";
 
 export default function Home() {
-  const [simulationStarted, setSimulationStarted] = useState(false);
   const [values, setValues] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [chartData, setChartData] = useState({});
+  const [animationState, setAnimationState] = useState(false);
   return (
     <section
       className={isOpen ? styles.noscroll : styles["simulation-section"]}
@@ -20,13 +21,16 @@ export default function Home() {
       <Form
         setValues={setValues}
         values={values}
-        setSimulationStarted={setSimulationStarted}
+        setChartData={setChartData}
+        setAnimationState={setAnimationState}
+        animationState={animationState}
       />
       <Simulation
         values={values}
-        simulationStarted={simulationStarted}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        chartData={chartData}
+        animationState={animationState}
       />
     </section>
   );
