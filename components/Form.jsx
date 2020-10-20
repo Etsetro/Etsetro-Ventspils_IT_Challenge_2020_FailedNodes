@@ -6,7 +6,8 @@ export default function Form({
   setValues,
   values,
   setChartData,
-  setAnimationComplete,
+  setAnimationState,
+  animationState,
 }) {
   useEffect(() => {
     if (values.realtimeLength) {
@@ -39,8 +40,8 @@ export default function Form({
           pointBackgroundColor: "#303960",
           pointBorderWidth: 2,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: " #f8b24f",
-          pointHoverBorderColor: " #f8b24f",
+          pointHoverBackgroundColor: "#f8b24f",
+          pointHoverBorderColor: "#f8b24f",
           pointHoverBorderWidth: 2,
           pointRadius: 2,
           pointHitRadius: 10,
@@ -50,6 +51,7 @@ export default function Form({
     };
     const dataIntervalValue = emission / 40;
     const dataIntervalTime = (365 * length) / 40;
+    setAnimationState("processing");
     if (!isNaN(emission) && !isNaN(length)) {
       let counter = 0;
 
@@ -65,7 +67,7 @@ export default function Form({
 
         if (counter === 40) {
           clearInterval(drawChart);
-          setAnimationComplete(true);
+          setAnimationState("complete");
         }
       }, 1000);
     }
@@ -105,7 +107,7 @@ export default function Form({
   }
 
   function submitHandler(formData) {
-    setAnimationComplete(false);
+    setAnimationState("null");
     const fetchData = fetch("/data.csv");
 
     fetchData.then((e) => {
@@ -185,6 +187,7 @@ export default function Form({
         type="submit"
         className={styles["btn-submit"]}
         onClick={handleSubmit(submitHandler)}
+        disabled={animationState === "processing"}
       >
         Start
       </button>
