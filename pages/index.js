@@ -7,7 +7,7 @@ export default function Home() {
   const [values, setValues] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [chartData, setChartData] = useState({});
-  const [animationComplete, setAnimationComplete] = useState(false);
+  const [animationState, setAnimationState] = useState(false);
   return (
     <section
       className={isOpen ? styles.noscroll : styles["simulation-section"]}
@@ -22,14 +22,15 @@ export default function Home() {
         setValues={setValues}
         values={values}
         setChartData={setChartData}
-        setAnimationComplete={setAnimationComplete}
+        setAnimationState={setAnimationState}
+        animationState={animationState}
       />
       <Simulation
         values={values}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         chartData={chartData}
-        animationComplete={animationComplete}
+        animationState={animationState}
       />
     </section>
   );
