@@ -7,7 +7,7 @@ export default function Simulation({
   isOpen,
   setIsOpen,
   chartData,
-  animationComplete,
+  animationState,
 }) {
   return (
     <section className={styles.simulation}>
@@ -63,7 +63,7 @@ export default function Simulation({
         />
       </div>
 
-      {animationComplete && (
+      {animationState === "complete" && (
         <button
           className={styles["btn-submit"]}
           onClick={() => {
