@@ -24,6 +24,26 @@ a {
   font-family: "Poppins", "PT Serif", sans-serif;
   height: 100vh;
 }
+
+.info {
+  padding: 20px 0;
+  background: #303960;
+  color: white;
+  font-family: "PT Serif";
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+  display: none;
+}
+
+@media only screen and (max-width: 740px) {
+  .app {
+    grid-template-rows: auto 1fr 60px;
+  }
+  .info {
+    display: initial;
+  }
+}
 #__next-prerender-indicator {
   display: none;
 }
