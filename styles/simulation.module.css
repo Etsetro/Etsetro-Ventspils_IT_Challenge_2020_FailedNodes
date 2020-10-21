@@ -38,8 +38,8 @@
   background-color: #e5e5e5;
   border: 0;
   padding: 15px 20px;
-  width: 60%;
   border-radius: 10px;
+  width: 75%;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -60,10 +60,16 @@
   font-size: 18px;
   color: #303960;
 }
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 60px 0;
+}
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  margin: 60px 0;
+  width: 75%;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
 }
 .form-flex {
   display: flex;
@@ -81,15 +87,21 @@
 .btn-submit {
   background-color: #f8b24f;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: "Poppins";
   font-size: 18px;
   font-weight: 700;
   outline: none;
   cursor: pointer;
-  width: 160px;
-  height: 60px;
-  margin: auto;
+  padding: 18px 40px;
+  box-shadow: 0px 0px 0px 0px #ca9141;
+  margin-top: 20px;
+  width: 200px;
+  transition: 0.2s;
+}
+.btn-submit:hover {
+  transform: translate(0, -6px);
+  box-shadow: 0px 6px 0px 0px #ca9141;
 }
 
 .overlay {
@@ -110,8 +122,14 @@
   position: relative;
   overflow: hidden;
 }
+
+.simulation {
+  display: flex;
+  flex-direction: column;
+}
+
 div.error {
-  position: relative;
+  position: absolute;
   background: rgb(226, 70, 70);
   width: 120px;
   height: 5px;
@@ -129,7 +147,7 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-@media only screen and (max-width: 748px) {
+@media only screen and (max-width: 670px) {
   .form h1 {
     font-size: 18px;
     margin-top: 0;
@@ -138,18 +156,31 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
     font-size: 14px;
   }
   .btn-submit {
-    width: 120px;
-    height: 50px;
+    padding: 15px 30px;
+    font-size: 16px;
+    margin: auto;
+    margin-top: 20px;
   }
   .form-label {
     font-size: 14px;
   }
   .form-widget {
     padding: 10px 15px;
+    width: 100%;
+  }
+  .form-dropdown {
+    height: 47px;
   }
   .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin: 60px 0;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    margin: auto;
+    width: 100%;
+    column-gap: 50px;
+  }
+  .simulation,
+  .form {
+    flex: 1 1 600px;
+    padding: 30px;
+    width: 100px;
   }
 }

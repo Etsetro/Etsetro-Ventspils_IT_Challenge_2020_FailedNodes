@@ -134,63 +134,65 @@ export default function Form({
         simulation was made to raise awareness for the CO2 emitted from
         transport.
       </p>
-      <form className={styles["form-grid"]}>
-        <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>
-            Vehicle production year
-          </label>
-          <select
-            className={`${styles["form-dropdown"]} ${styles["form-widget"]}`}
-            name="prodDate"
-            ref={register}
-          >
-            {yearsSelect.map((year, index) => (
-              <option value={year} key={index}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>Road length (km)</label>
-          <input
-            name="roadLength"
-            type="number"
-            className={styles["form-widget"]}
-            ref={register({ required: true })}
-          />
-          {errors.roadLength && <div className={styles.error}></div>}
-        </div>
-        <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>Real time length (yr.)</label>
-          <input
-            name="realtimeLength"
-            type="number"
-            className={styles["form-widget"]}
-            ref={register({ required: true })}
-          />
-          {errors.realtimeLength && <div className={styles.error}></div>}
-        </div>
-        <div className={styles["form-widget-container"]}>
-          <label className={styles["form-label"]}>Vehicle count (n/km)</label>
-          <input
-            name="carCount"
-            type="number"
-            className={styles["form-widget"]}
-            ref={register({ required: true })}
-          />
-          {errors.carCount && <div className={styles.error}></div>}
-        </div>
-      </form>
-
-      <button
-        type="submit"
-        className={styles["btn-submit"]}
-        onClick={handleSubmit(submitHandler)}
-        disabled={animationState === "processing"}
-      >
-        Start
-      </button>
+      <div className={styles["form-wrapper"]}>
+        <form className={styles["form-grid"]}>
+          <div className={styles["form-widget-container"]}>
+            <label className={styles["form-label"]}>
+              Vehicle production year
+            </label>
+            <select
+              className={`${styles["form-dropdown"]} ${styles["form-widget"]}`}
+              name="prodDate"
+              ref={register}
+            >
+              {yearsSelect.map((year, index) => (
+                <option value={year} key={index}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles["form-widget-container"]}>
+            <label className={styles["form-label"]}>Road length (km)</label>
+            <input
+              name="roadLength"
+              type="number"
+              className={styles["form-widget"]}
+              ref={register({ required: true })}
+            />
+            {errors.roadLength && <div className={styles.error}></div>}
+          </div>
+          <div className={styles["form-widget-container"]}>
+            <label className={styles["form-label"]}>
+              Real time length (yr)
+            </label>
+            <input
+              name="realtimeLength"
+              type="number"
+              className={styles["form-widget"]}
+              ref={register({ required: true })}
+            />
+            {errors.realtimeLength && <div className={styles.error}></div>}
+          </div>
+          <div className={styles["form-widget-container"]}>
+            <label className={styles["form-label"]}>Vehicle count (n/h)</label>
+            <input
+              name="carCount"
+              type="number"
+              className={styles["form-widget"]}
+              ref={register({ required: true })}
+            />
+            {errors.carCount && <div className={styles.error}></div>}
+          </div>
+        </form>
+        <button
+          type="submit"
+          className={styles["btn-submit"]}
+          onClick={handleSubmit(submitHandler)}
+        >
+          Start
+        </button>
+      </div>
     </section>
   );
 }
