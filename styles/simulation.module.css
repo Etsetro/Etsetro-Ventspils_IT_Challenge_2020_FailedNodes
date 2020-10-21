@@ -4,7 +4,6 @@
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
-  position: relative;
 }
 
 .simulation,
@@ -112,7 +111,6 @@
   transform: translate(0, -6px);
   box-shadow: 0px 6px 0px 0px #ca9141;
 }
-
 .overlay {
   position: fixed;
   height: 100%;
