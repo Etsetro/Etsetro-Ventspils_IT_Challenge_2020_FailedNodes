@@ -93,12 +93,15 @@
   font-weight: 700;
   outline: none;
   cursor: pointer;
-  padding: 15px 50px;
-  box-shadow: 0px 0px 0px 0px #f8b24f;
-  transition: 0.3s;
+  padding: 18px 40px;
+  box-shadow: 0px 0px 0px 0px #ca9141;
+  margin-top: 20px;
+  width: 200px;
+  transition: 0.2s;
 }
 .btn-submit:hover {
-  box-shadow: 0px 10px 0px 0px #ca9141;
+  transform: translate(0, -6px);
+  box-shadow: 0px 6px 0px 0px #ca9141;
 }
 
 .overlay {
@@ -153,8 +156,10 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
     font-size: 14px;
   }
   .btn-submit {
-    padding: 10px 30px;
+    padding: 15px 30px;
     font-size: 16px;
+    margin: auto;
+    margin-top: 20px;
   }
   .form-label {
     font-size: 14px;
