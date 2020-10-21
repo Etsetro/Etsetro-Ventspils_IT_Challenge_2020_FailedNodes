@@ -189,6 +189,7 @@ export default function Form({
           type="submit"
           className={styles["btn-submit"]}
           onClick={handleSubmit(submitHandler)}
+          disabled={animationState === "processing"}
         >
           Start
         </button>
