@@ -14,7 +14,7 @@ export default function About() {
           <ul className={styles.credentials}>
             <li>
               <h2>Kristaps Mihelsons</h2>
-              <h3>Lorem ipsum</h3>
+              <h3>[Some text here]</h3>
             </li>
             <li>
               <h2>Ronalds Palacis</h2>
@@ -22,7 +22,7 @@ export default function About() {
             </li>
             <li>
               <h2>Kristers Dzintars</h2>
-              <h3>Lorem ipsum</h3>
+              <h3>[Some text here]</h3>
             </li>
           </ul>
         </div>
