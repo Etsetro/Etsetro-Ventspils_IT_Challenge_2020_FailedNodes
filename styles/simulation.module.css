@@ -99,6 +99,15 @@
   width: 200px;
   transition: 0.2s;
 }
+.btn-submit:disabled {
+  background-color: #e5e5e5;
+  position: static;
+}
+.btn-submit:disabled:hover {
+  transform: translate(0, 0);
+  box-shadow: 0px 0px 0px 0px #e5e5e5;
+  cursor: initial;
+}
 .btn-submit:hover {
   transform: translate(0, -6px);
   box-shadow: 0px 6px 0px 0px #ca9141;
