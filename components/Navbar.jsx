@@ -1,15 +1,14 @@
 import Link from "next/link";
 import styles from "../styles/navbar.module.css";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const router = useRouter();
 
   let className;
-  if (router.pathname === '/about') {
+  if (router.pathname === "/about") {
     className = `${styles.active}`;
-  }
-  else if (router.pathname === '/') {
+  } else if (router.pathname === "/") {
     className = `${styles.active}`;
   }
 

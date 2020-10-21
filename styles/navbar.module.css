@@ -53,14 +53,7 @@
     height: 80px;
   }
   .navbar p {
-    position: fixed;
-    left: 50%;
-    width: 100%;
-    padding: 21px;
-    bottom: 0px;
-    transform: translate(-50%);
-    color: white;
-    background: #303960;
+    display: none;
   }
   .navbar a {
     font-size: 14px;
