@@ -13,10 +13,7 @@ export default function Home() {
       className={isOpen ? styles.noscroll : styles["simulation-section"]}
     >
       {isOpen && (
-        <div
-          className={styles.overlay}
-          onClick={(e) => setIsOpen(!isOpen)}
-        ></div>
+        <div className={styles.overlay} onClick={(e) => setIsOpen(false)}></div>
       )}
       <Form
         setValues={setValues}
