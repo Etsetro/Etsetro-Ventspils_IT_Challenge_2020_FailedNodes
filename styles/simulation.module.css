@@ -135,6 +135,10 @@
   flex-direction: column;
 }
 
+.simulation canvas {
+  min-height: 300px;
+}
+
 div.error {
   position: absolute;
   background: rgb(226, 70, 70);
@@ -189,5 +193,8 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
     flex: 1 1 600px;
     padding: 30px;
     width: 100px;
+  }
+  .simulation canvas {
+    min-height: 200px;
   }
 }
