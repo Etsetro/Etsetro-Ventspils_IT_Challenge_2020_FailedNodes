@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/simulation.module.css";
 import Form from "../components/Form";
-import Simulation from "../components/Simulation";
+import Simulation from "../components/Simulation.tsx";
 
 export default function Home() {
   const [values, setValues] = useState({});
@@ -28,6 +28,8 @@ export default function Home() {
         setIsOpen={setIsOpen}
         chartData={chartData}
         animationState={animationState}
+        vehicle_count={100}
+        emissions={20}
       />
     </section>
   );
