@@ -10,15 +10,16 @@ export default function About() {
       </div>
       <div className={styles["bottom-container"]}>
         <div className={styles.content}>
+          <img src="/failednodes.svg" alt="logo" className={styles.logo}></img>
           <h1>Our team</h1>
           <ul className={styles.credentials}>
             <li>
               <h2>Kristaps Mihelsons</h2>
-              <h3>Lorem ipsum</h3>
+              <h3>3,987^12 + 4,365^12 = 4,472^12</h3>
             </li>
             <li>
               <h2>Ronalds Palacis</h2>
-              <h3>Team leader</h3>
+              <h3>Just built different</h3>
             </li>
             <li>
               <h2>Kristers Dzintars</h2>
