@@ -1,0 +1,14 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 517.09 480.02">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #303960;
+            }
+        </style>
+    </defs>
+    <title>failednodes</title>
+    <circle class="cls-1" cx="467.93" cy="49.15" r="49.14" />
+    <polygon class="cls-1" points="459.37 41.63 478.73 52.81 341.37 290.73 214 319.02 459.37 41.63" />
+    <circle class="cls-1" cx="49.15" cy="430.86" r="49.15" />
+    <polygon class="cls-1" points="57.72 438.39 38.35 427.21 175.72 189.29 303.09 161 57.72 438.39" />
+</svg>
