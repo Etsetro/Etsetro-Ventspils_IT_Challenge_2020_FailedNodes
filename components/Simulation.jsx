@@ -1,7 +1,6 @@
 import styles from "../styles/simulation.module.css";
 import Popup from "./Popup";
 import { Line } from "react-chartjs-2";
-import { useRef } from "react";
 
 export default function Simulation({
   values,
