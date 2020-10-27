@@ -89,7 +89,7 @@ const Simulation = (props) => {
     image = new Image();
 
     constructor(emissions:number, x:number, y:number){
-      this.stage_count = emissions / 10;
+      this.stage_count = emissions / 10000;
       this.x = x;
       this.y = y;
     }
