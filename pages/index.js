@@ -29,7 +29,7 @@ export default function Home() {
         chartData={chartData}
         animationState={animationState}
         vehicle_count={100}
-        emissions={20}
+        emissions={150000}
       />
     </section>
   );

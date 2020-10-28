@@ -89,12 +89,13 @@ const Simulation = (props) => {
     image = new Image();
 
     constructor(emissions:number, x:number, y:number){
-      this.stage_count = emissions / 10000;
+      this.stage_count = Math.floor(emissions / 10000) > 10 ? 10 : Math.floor(emissions / 10000);
       this.x = x;
       this.y = y;
     }
 
     Draw(context:CanvasRenderingContext2D, distance:number){
+      console.log(distance)
       context.save();
       let stage = Math.floor(((distance - 1) / (2000 / this.stage_count))) + 1;
       this.image.src = `../images/tree-${stage}.png`;
@@ -199,7 +200,7 @@ const Simulation = (props) => {
 
     setInterval(
       () => {
-        if(frame <= 40 * renderFrameRate) {
+        if(frame < 40 * renderFrameRate) {
           frame++;
           sim.Draw(context, frame);
         }
