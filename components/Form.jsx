@@ -100,6 +100,7 @@ export default function Form({
           treesRequired: treesRequired,
           treeSpaceRequired: (treesRequired * 27) / 10000,
           realtimeLength: realtimeLength,
+          carCount: carCount,
         };
         return dataObj;
       }
@@ -122,6 +123,11 @@ export default function Form({
         setValues(dataObj);
       });
     });
+    setTimeout(() => {
+      if (window !== undefined) {
+        window.scrollBy(0, window.innerHeight);
+      }
+    }, 500);
   }
 
   return (
