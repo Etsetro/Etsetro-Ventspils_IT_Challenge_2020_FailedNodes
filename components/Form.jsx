@@ -123,6 +123,11 @@ export default function Form({
         setValues(dataObj);
       });
     });
+    setTimeout(() => {
+      if (window !== undefined) {
+        window.scrollBy(0, window.innerHeight);
+      }
+    }, 500);
   }
 
   return (
