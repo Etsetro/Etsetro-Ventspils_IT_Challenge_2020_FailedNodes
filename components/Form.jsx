@@ -100,6 +100,7 @@ export default function Form({
           treesRequired: treesRequired,
           treeSpaceRequired: (treesRequired * 27) / 10000,
           realtimeLength: realtimeLength,
+          carCount: carCount,
         };
         return dataObj;
       }
