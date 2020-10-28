@@ -28,8 +28,6 @@ export default function Home() {
         setIsOpen={setIsOpen}
         chartData={chartData}
         animationState={animationState}
-        vehicle_count={100}
-        emissions={150000}
       />
     </section>
   );
