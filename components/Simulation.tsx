@@ -1,5 +1,4 @@
 import "../styles/simulation.module.css";
-import Popup from "./Popup";
 import { Line } from "react-chartjs-2";
 import React, { useEffect, useRef } from "react";
 
@@ -14,12 +13,8 @@ const Simulation = (props) => {
   }
   /* ----------------------------------- */
   // Simulation constants
-  let width: number; // Sets simulation ratio to 3:4
-  let height: number; // Sets simulation ratio to 3:4
-  if (typeof window !== "undefined") {
-    width = window.innerWidth;
-    height = window.innerHeight;
-  }
+  const width = 1456; // Sets simulation ratio to 3:4
+  const height = 1092; // Sets simulation ratio to 3:4
 
   /* ----------------------------------- */
   // Vehicle constants
@@ -101,7 +96,7 @@ const Simulation = (props) => {
 
     Draw(context: CanvasRenderingContext2D, distance: number) {
       let frame = distance - 1;
-      let frames_per_stage = 40 * 60;
+      let frames_per_stage = (40 * 60) / this.stage_count;
       let current_stage = Math.floor(frame / frames_per_stage) + 1;
       let image_opacity =
         (frame - (current_stage - 1) * frames_per_stage) / frames_per_stage;
@@ -117,6 +112,7 @@ const Simulation = (props) => {
         context.drawImage(this.next_stage_image, this.x, this.y);
       }
       context.restore();
+      console.log(frame, current_stage);
     }
   }
 
@@ -184,6 +180,7 @@ const Simulation = (props) => {
           y = getRandomInt((height / 3) * 2 + 50, height - 127);
         }
         this.trees.push(new Tree(emmisions, x, y));
+        console.log(emmisions);
       }
     }
 
@@ -196,18 +193,20 @@ const Simulation = (props) => {
       this.trees.forEach((t) => t.Draw(context, distance));
     }
   }
-
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext("2d");
+    let context;
+    if (canvas !== null) {
+      canvas.width = width;
+      canvas.height = height;
+      context = canvas.getContext("2d");
+    }
     let frameCount = 0;
     let animationFrameId;
 
     const sim = new Simulation(
-      parseFloat(props.vehicle_count),
-      parseFloat(props.emissions),
+      parseFloat(props.values.carCount),
+      parseFloat(props.values.total),
       width,
       height
     );
@@ -219,8 +218,9 @@ const Simulation = (props) => {
       if (frameCount < 40 * 60) {
         sim.Draw(context, frameCount);
       }
-
-      animationFrameId = window.requestAnimationFrame(render);
+      setTimeout(() => {
+        animationFrameId = window.requestAnimationFrame(render);
+      }, 1000 / 60);
     };
     if (props.animationState == "processing") {
       render();
@@ -230,7 +230,105 @@ const Simulation = (props) => {
     };
   }, [props.animationState]);
 
-  return <canvas ref={canvasRef} {...props} />;
+  return (
+    <section className="simulation" style={{ background: "#abe84f" }}>
+      <div className="animation-container">
+        {props.animationState == "processing" && (
+          <canvas
+            ref={canvasRef}
+            {...props}
+            style={{ width: "100%", float: "right" }}
+            className="canvas"
+          />
+        )}
+      </div>
+      <div
+        style={
+          !props.chartData.labels ? { display: "none" } : { display: "block" }
+        }
+      >
+        <Line
+          data={props.chartData}
+          height={150}
+          options={{
+            tooltips: {
+              displayColors: false,
+              titleFontFamily: "Poppins",
+              titleFontColor: "#ffffff",
+              titleFontStyle: "normal",
+              titleFontSize: 14,
+              bodyFontFamily: "Poppins",
+              bodyFontStyle: "bold",
+              bodyFontSize: 16,
+              footerFontFamily: "Poppins",
+              footerFontSize: 14,
+              xPadding: 10,
+              yPadding: 10,
+              callbacks: {
+                title: (tooltipItem, data) =>
+                  data["labels"][tooltipItem[0]["index"]] + " days",
+                label: (tooltipItem, data) =>
+                  data["datasets"][0]["data"][tooltipItem["index"]] + " tons",
+              },
+            },
+            title: {
+              text: "Emission in selected time period",
+              display: true,
+              fontFamily: "Poppins",
+              fontSize: 18,
+              fontColor: "black",
+              padding: 20,
+            },
+            animation: {
+              duration: 500,
+              easing: "linear",
+            },
+            legend: {
+              position: "bottom",
+              labels: {
+                fontColor: "black",
+                fontFamily: "Poppins",
+                fontStyle: "bold",
+                fontSize: 14,
+                padding: 20,
+              },
+            },
+          }}
+        />
+      </div>
+
+      {props.animationState === "complete" && (
+        <div>
+          <div className="row">
+            <h3>Grams of CO2 per year(mi)</h3>
+            <h4>{props.values.gMiYear} g/mi</h4>
+          </div>
+          <div className="row">
+            <h3>Grams of CO2 per year(km)</h3>
+            <h4>{Math.round(props.values.gKmYear * 100) / 100} g/km</h4>
+          </div>
+          <div className="row">
+            <h3>Tons of CO2 per year</h3>
+            <h4>{Math.round(props.values.tYear * 100) / 100}</h4>
+          </div>
+          <div className="row">
+            <h3>Tons of CO2 in selected period</h3>
+            <h4>{Math.round(props.values.total * 100) / 100}</h4>
+          </div>
+          <div className="row">
+            <h3>
+              Grown trees required to completely compensate yearly emissions
+            </h3>
+            <h4>~{Math.round(props.values.treesRequired)} trees</h4>
+          </div>
+          <div className="row">
+            <h3>Space the trees would need</h3>
+            <h4>~{Math.round(props.values.treeSpaceRequired)} ha</h4>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default Simulation;
