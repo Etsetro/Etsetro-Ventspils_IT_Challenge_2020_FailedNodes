@@ -119,6 +119,7 @@ const Simulation = (props) => {
     vehicle_count:number;
     vehicles:Vehicle[] = [];
     trees:Tree[] = [];
+
     constructor(car_count:number, emmisions:number, private width:number, private height:number){
       this.vehicle_count = car_count;
       let route_vehicles = []
@@ -157,15 +158,15 @@ const Simulation = (props) => {
 
         this.vehicles.push(new Vehicle(type, route, delay));
       }
-      for (let i = 1; i < 21; i++) {
+      for (let i = 0; i < 20; i++) {
         let x;
         let y;
-        if (i <= 10) {
-          x = getRandomInt((i - 1) * (1456 / 10), i * (1456 / 10));
-          y = getRandomInt(0 + 50, (1092 / 3) - 100);
+        if (i < 10) {
+          x = getRandomInt((i * (1456 / 10)) - 30, (i * (1456 / 10)) + 30);
+          y = getRandomInt(0, (1092 / 3) - 100);
         } else {
-          x = getRandomInt((i - 11) * (1456 / 10), (i - 10) * (1456 / 10));
-          y = getRandomInt(((1092 / 3) * 2) + 50, 1092 - 50);
+          x = getRandomInt(((i - 10) * (1456 / 10)) - 30, ((i - 10) * (1456 / 10)) + 30);
+          y = getRandomInt(((1092 / 3) * 2) + 50, 1092 - 127);
         }
         this.trees.push(new Tree(emmisions, x, y));
       }
