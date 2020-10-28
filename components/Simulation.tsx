@@ -1,14 +1,11 @@
 import "../styles/simulation.module.css";
 import Popup from "./Popup";
 import { Line } from "react-chartjs-2";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Simulation = (props) => {
-  useEffect(() => {
-    if (props.animationState == "processing") {
-      bootstrapper();
-    }
-  }, [props.animationState]);
+  const canvasRef = useRef(null);
+
   // Utility functions
   function getRandomFloat(min: number, max: number): number {
     return Math.random() * (max - min) + min;
@@ -16,7 +13,6 @@ const Simulation = (props) => {
   function getRandomInt(min: number, max: number): number {
     return Math.floor(getRandomFloat(min, max));
   }
-
   /* ----------------------------------- */
   // Simulation constants
   let width: number; // Sets simulation ratio to 3:4
@@ -28,7 +24,6 @@ const Simulation = (props) => {
 
   /* ----------------------------------- */
   // Vehicle constants
-  //const speed = 50;
   const carTypes = ["sedan", "pickup", "minivan", "truck"];
   const carHeights = [136, 146, 148, 241];
   const carColorPalette = ["black", "blue", "green", "brown", "red"];
@@ -203,115 +198,39 @@ const Simulation = (props) => {
     }
   }
 
-  function bootstrapper() {
-    let canvas;
-    const renderFrameRate = 50;
-    let frame = 0;
-    if (typeof window !== "undefined") {
-      canvas = document.createElement("canvas");
-      document.body.appendChild(canvas);
-    }
-    if (!canvas) return null;
+  useEffect(() => {
+    const canvas = canvasRef.current;
     canvas.width = width;
     canvas.height = height;
-
     const context = canvas.getContext("2d");
-    if (!context) return null;
+    let frameCount = 0;
+    let animationFrameId;
 
     const sim = new Simulation(
-      parseFloat(props.values.carCount),
-      parseFloat(props.values.total),
+      parseFloat(props.vehicle_count),
+      parseFloat(props.emissions),
       width,
       height
     );
 
-    setInterval(() => {
-      if (frame < 40 * renderFrameRate) {
-        frame++;
-        sim.Draw(context, frame);
+    //Our draw came here
+    const render = () => {
+      frameCount++;
+
+      if (frameCount < 40 * 60) {
+        sim.Draw(context, frameCount);
       }
-    }, 1000 / renderFrameRate);
-  }
 
-  return (
-    <section className="simulation">
-      <div id="container" className="animation-container"></div>
-      <div
-        style={
-          !props.chartData.labels ? { display: "none" } : { display: "block" }
-        }
-      >
-        <Line
-          data={props.chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            tooltips: {
-              displayColors: false,
-              titleFontFamily: "Poppins",
-              titleFontStyle: "normal",
-              titleFontSize: 14,
-              bodyFontFamily: "Poppins",
-              bodyFontStyle: "bold",
-              bodyFontSize: 16,
-              footerFontFamily: "Poppins",
-              footerFontSize: 14,
-              xPadding: 10,
-              yPadding: 10,
-              callbacks: {
-                title: (tooltipItem, data) =>
-                  data["labels"][tooltipItem[0]["index"]] + " days",
-                label: (tooltipItem, data) =>
-                  data["datasets"][0]["data"][tooltipItem["index"]] + " tons",
-              },
-            },
-            title: {
-              text: "Emission in selected time period",
-              display: true,
-              fontFamily: "Poppins",
-              fontSize: 18,
-              fontColor: "black",
-              padding: 20,
-            },
-            animation: {
-              duration: 500,
-              easing: "linear",
-            },
-            legend: {
-              position: "bottom",
-              labels: {
-                fontColor: "black",
-                fontFamily: "Poppins",
-                fontStyle: "bold",
-                fontSize: 14,
-                padding: 20,
-              },
-            },
-          }}
-        />
-      </div>
+      animationFrameId = window.requestAnimationFrame(render);
+    };
+    render();
 
-      {props.animationState === "complete" && (
-        <button
-          className={"btn-submit"}
-          onClick={() => {
-            props.setIsOpen(!props.isOpen);
-            console.log(props.isOpen);
-          }}
-        >
-          Show results
-        </button>
-      )}
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
-      {props.isOpen && (
-        <Popup
-          values={props.values}
-          setIsOpen={props.setIsOpen}
-          isOpen={props.isOpen}
-        />
-      )}
-    </section>
-  );
+  return <canvas ref={canvasRef} {...props} />;
 };
 
 export default Simulation;
