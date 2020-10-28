@@ -196,7 +196,7 @@ const Simulation = (props) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     let context;
-    if (canvas !== null) {
+    if (canvas !== null && canvas !== undefined) {
       canvas.width = width;
       canvas.height = height;
       context = canvas.getContext("2d");
@@ -216,7 +216,9 @@ const Simulation = (props) => {
       frameCount++;
 
       if (frameCount < 40 * 60) {
-        sim.Draw(context, frameCount);
+        if (context !== null && context !== undefined) {
+          sim.Draw(context, frameCount);
+        }
       }
       setTimeout(() => {
         animationFrameId = window.requestAnimationFrame(render);
@@ -234,12 +236,7 @@ const Simulation = (props) => {
     <section className="simulation" style={{ background: "#abe84f" }}>
       <div className="animation-container">
         {props.animationState == "processing" && (
-          <canvas
-            ref={canvasRef}
-            {...props}
-            style={{ width: "100%", float: "right" }}
-            className="canvas"
-          />
+          <canvas ref={canvasRef} style={{ width: "100%", float: "right" }} />
         )}
       </div>
       <div
