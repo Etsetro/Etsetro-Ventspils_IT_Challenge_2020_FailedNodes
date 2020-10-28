@@ -1,7 +1,6 @@
-//import styles from "../styles/simulation.module.css";
+import "../styles/simulation.module.css";
 import Popup from "./Popup";
 import { Line } from "react-chartjs-2";
-//import { useRef } from "react";
 import React, { useEffect } from "react";
 
 const Simulation = (props) => {
@@ -20,8 +19,12 @@ const Simulation = (props) => {
 
   /* ----------------------------------- */
   // Simulation constants
-  const width = 1456; // Sets simulation ratio to 3:4
-  const height = 1092; // Sets simulation ratio to 3:4
+  let width: number; // Sets simulation ratio to 3:4
+  let height: number; // Sets simulation ratio to 3:4
+  if (typeof window !== "undefined") {
+    width = window.innerWidth;
+    height = window.innerHeight;
+  }
 
   /* ----------------------------------- */
   // Vehicle constants
@@ -177,14 +180,14 @@ const Simulation = (props) => {
         let x;
         let y;
         if (i < 10) {
-          x = getRandomInt(i * (1456 / 10) - 30, i * (1456 / 10) + 30);
-          y = getRandomInt(0, 1092 / 3 - 100);
+          x = getRandomInt(i * (width / 10) - 30, i * (width / 10) + 30);
+          y = getRandomInt(0, height / 3 - 100);
         } else {
           x = getRandomInt(
-            (i - 10) * (1456 / 10) - 30,
-            (i - 10) * (1456 / 10) + 30
+            (i - 10) * (width / 10) - 30,
+            (i - 10) * (width / 10) + 30
           );
-          y = getRandomInt((1092 / 3) * 2 + 50, 1092 - 127);
+          y = getRandomInt((height / 3) * 2 + 50, height - 127);
         }
         this.trees.push(new Tree(emmisions, x, y));
       }
@@ -216,8 +219,8 @@ const Simulation = (props) => {
     if (!context) return null;
 
     const sim = new Simulation(
-      parseFloat(props.vehicle_count),
-      parseFloat(props.emissions),
+      parseFloat(props.values.carCount),
+      parseFloat(props.values.total),
       width,
       height
     );
@@ -231,12 +234,83 @@ const Simulation = (props) => {
   }
 
   return (
-    <>
-      <section>
-        <div>Simulation Works!</div>
-        <div id="simulation">{}</div>
-      </section>
-    </>
+    <section className="simulation">
+      <div id="container" className="animation-container"></div>
+      <div
+        style={
+          !props.chartData.labels ? { display: "none" } : { display: "block" }
+        }
+      >
+        <Line
+          data={props.chartData}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+              displayColors: false,
+              titleFontFamily: "Poppins",
+              titleFontStyle: "normal",
+              titleFontSize: 14,
+              bodyFontFamily: "Poppins",
+              bodyFontStyle: "bold",
+              bodyFontSize: 16,
+              footerFontFamily: "Poppins",
+              footerFontSize: 14,
+              xPadding: 10,
+              yPadding: 10,
+              callbacks: {
+                title: (tooltipItem, data) =>
+                  data["labels"][tooltipItem[0]["index"]] + " days",
+                label: (tooltipItem, data) =>
+                  data["datasets"][0]["data"][tooltipItem["index"]] + " tons",
+              },
+            },
+            title: {
+              text: "Emission in selected time period",
+              display: true,
+              fontFamily: "Poppins",
+              fontSize: 18,
+              fontColor: "black",
+              padding: 20,
+            },
+            animation: {
+              duration: 500,
+              easing: "linear",
+            },
+            legend: {
+              position: "bottom",
+              labels: {
+                fontColor: "black",
+                fontFamily: "Poppins",
+                fontStyle: "bold",
+                fontSize: 14,
+                padding: 20,
+              },
+            },
+          }}
+        />
+      </div>
+
+      {props.animationState === "complete" && (
+        <button
+          className={"btn-submit"}
+          onClick={() => {
+            props.setIsOpen(!props.isOpen);
+            console.log(props.isOpen);
+          }}
+        >
+          Show results
+        </button>
+      )}
+
+      {props.isOpen && (
+        <Popup
+          values={props.values}
+          setIsOpen={props.setIsOpen}
+          isOpen={props.isOpen}
+        />
+      )}
+    </section>
   );
 };
 
