@@ -1,5 +1,5 @@
 import styles from "../styles/simulation.module.css";
-import Popup from "./Popup";
+import Popup from "../Popup";
 import { Line } from "react-chartjs-2";
 
 export default function Simulation({
@@ -17,9 +17,11 @@ export default function Simulation({
       >
         <Line
           data={chartData}
+          width={10}
+          height={10}
           options={{
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: false,
+            maintainAspectRatio: true,
             tooltips: {
               displayColors: false,
               titleFontFamily: "Poppins",
