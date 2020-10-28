@@ -5,12 +5,13 @@
   flex-wrap: wrap;
   overflow: auto;
 }
-
-.simulation,
-.form {
+.simulation-section > section {
   flex: 1 1 600px;
   padding: 60px;
   width: 100px;
+}
+.simulation-section > section:nth-child(2) {
+  padding: 0;
 }
 
 .form h1 {
@@ -138,6 +139,7 @@
 
 .simulation canvas {
   min-height: 400px;
+  position: absolute;
 }
 
 div.error {
