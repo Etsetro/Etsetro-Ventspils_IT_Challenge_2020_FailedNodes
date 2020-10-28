@@ -2,26 +2,24 @@
 import Popup from "./Popup";
 import { Line } from "react-chartjs-2";
 //import { useRef } from "react";
-import React, {useEffect} from "react";
-
+import React, { useRef, useEffect } from "react";
 
 const Simulation = (props) => {
+  const canvasRef = useRef(null)
+
   // Utility functions
-  function getRandomFloat(min:number, max:number):number{
-    return Math.random() * (max-min) + min
+  function getRandomFloat(min: number, max: number): number {
+    return Math.random() * (max - min) + min
   }
-  function getRandomInt(min:number, max:number):number{
+  function getRandomInt(min: number, max: number): number {
     return Math.floor(getRandomFloat(min, max))
   }
-
   /* ----------------------------------- */
   // Simulation constants
   const width = 1456; // Sets simulation ratio to 3:4
   const height = 1092; // Sets simulation ratio to 3:4
-
   /* ----------------------------------- */
   // Vehicle constants
-  //const speed = 50;
   const carTypes = ['sedan', 'pickup', 'minivan', 'truck'];
   const carHeights = [136, 146, 148, 241]
   const carColorPalette = ['black', 'blue', 'green', 'brown', 'red'];
@@ -30,22 +28,22 @@ const Simulation = (props) => {
   /* ----------------------------------- */
 
   interface ISimObject {
-    Draw(context:CanvasRenderingContext2D, distance:number):void
+    Draw(context: CanvasRenderingContext2D, distance: number): void
   }
 
   class Vehicle implements ISimObject {
-    route:number;
-    type:string; color:string;
-    x:number;
+    route: number;
+    type: string; color: string;
+    x: number;
 
-    timeToLive:number;
-    delay:number;
+    timeToLive: number;
+    delay: number;
 
     image = new Image();
 
-    constructor(type:string, route:number, delay:number){
+    constructor(type: string, route: number, delay: number) {
       this.type = type;
-      if(this.type === 'truck') {
+      if (this.type === 'truck') {
         const colors = ['red', 'black'];
         this.color = colors[getRandomInt(0, colors.length)];
       } else {
@@ -58,23 +56,23 @@ const Simulation = (props) => {
       this.x = startLocations[this.route];
     }
 
-    Draw(context:CanvasRenderingContext2D, distance:number){
+    Draw(context: CanvasRenderingContext2D, distance: number) {
       distance = distance * 5;
 
       context.save();
-      
-      if(this.route === 3) {
-        context.translate((this.x + this.delay) - distance, height/2 + 20);
-        context.rotate(-90 * Math.PI/180);
+
+      if (this.route === 3) {
+        context.translate((this.x + this.delay) - distance, height / 2 + 20);
+        context.rotate(-90 * Math.PI / 180);
       } else if (this.route === 2) {
-        context.translate((this.x + this.delay) - distance, height/2 - 65);
-        context.rotate(-90 * Math.PI/180);
+        context.translate((this.x + this.delay) - distance, height / 2 - 65);
+        context.rotate(-90 * Math.PI / 180);
       } else if (this.route === 1) {
-        context.translate((this.x - this.delay) + distance, height/2 + 60);
-        context.rotate(90 * Math.PI/180);
+        context.translate((this.x - this.delay) + distance, height / 2 + 60);
+        context.rotate(90 * Math.PI / 180);
       } else {
-        context.translate((this.x - this.delay) + distance, height/2 + 145);
-        context.rotate(90 * Math.PI/180);
+        context.translate((this.x - this.delay) + distance, height / 2 + 145);
+        context.rotate(90 * Math.PI / 180);
       }
       context.scale(0.2, 0.2);
       context.drawImage(this.image, 0, 0);
@@ -83,26 +81,26 @@ const Simulation = (props) => {
   }
 
   class Tree implements ISimObject {
-    stage_count:number;
-    x:number; y:number;
+    stage_count: number;
+    x: number; y: number;
 
     current_stage_image = new Image();
     next_stage_image = new Image();
 
-    constructor(emissions:number, x:number, y:number){
+    constructor(emissions: number, x: number, y: number) {
       this.stage_count = Math.floor(emissions / 10000) > 10 ? 10 : Math.floor(emissions / 10000);
       this.x = x;
       this.y = y;
     }
 
-    Draw(context:CanvasRenderingContext2D, distance:number){
+    Draw(context: CanvasRenderingContext2D, distance: number) {
       let frame = distance - 1;
       let frames_per_stage = 2000 / this.stage_count;
       let current_stage = Math.floor(frame / frames_per_stage) + 1;
       let image_opacity = (frame - ((current_stage - 1) * frames_per_stage)) / frames_per_stage;
 
       context.save();
-      
+
       this.current_stage_image.src = `../images/tree-${current_stage}.png`;
       context.drawImage(this.current_stage_image, this.x, this.y);
 
@@ -116,11 +114,11 @@ const Simulation = (props) => {
   }
 
   class Simulation implements ISimObject {
-    vehicle_count:number;
-    vehicles:Vehicle[] = [];
-    trees:Tree[] = [];
+    vehicle_count: number;
+    vehicles: Vehicle[] = [];
+    trees: Tree[] = [];
 
-    constructor(car_count:number, emmisions:number, private width:number, private height:number){
+    constructor(car_count: number, emmisions: number, private width: number, private height: number) {
       this.vehicle_count = car_count;
       let route_vehicles = []
       let space_between_cars = []
@@ -172,7 +170,7 @@ const Simulation = (props) => {
       }
     }
 
-    Draw(context:CanvasRenderingContext2D, distance:number){
+    Draw(context: CanvasRenderingContext2D, distance: number) {
       const image = new Image();
       image.src = '../images/map.png';
       context.drawImage(image, 0, 0, width, height);
@@ -186,43 +184,35 @@ const Simulation = (props) => {
     }
   }
 
-  function bootstrapper() {
-    let canvas;
-    const renderFrameRate = 50;
-    let frame = 0;
-    if (typeof window !== 'undefined') {
-      canvas = document.createElement('canvas');
-      document.body.appendChild(canvas);
-    }
-    if (!canvas) return null
+  useEffect(() => {
+
+    const canvas = canvasRef.current
     canvas.width = width;
     canvas.height = height;
-
-    const context = canvas.getContext('2d');
-    if(!context) return null
+    const context = canvas.getContext('2d')
+    let frameCount = 0
+    let animationFrameId
 
     const sim = new Simulation(parseFloat(props.vehicle_count), parseFloat(props.emissions), width, height);
 
-    setInterval(
-      () => {
-        if(frame < 40 * renderFrameRate) {
-          frame++;
-          sim.Draw(context, frame);
-        }
-      },
-      1000/renderFrameRate
-    )
-  }
+    //Our draw came here
+    const render = () => {
+      frameCount++
 
-  bootstrapper()
-  return (
-    <>
-      <section>
-        <div>Simulation Works!</div>
-        <div id="simulation">{}</div>
-      </section>
-    </>
-  );
-};
+      if (frameCount < 40 * 60) {
+        sim.Draw(context, frameCount);
+      }
+
+      animationFrameId = window.requestAnimationFrame(render)
+    }
+    render()
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
+
+  return <canvas ref={canvasRef} {...props} />
+}
 
 export default Simulation;
