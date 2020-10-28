@@ -3,6 +3,7 @@
 
 html,
 body {
+  scroll-behavior: smooth;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -50,20 +51,20 @@ a {
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
+  display: none;
 }
 
 /* Track */
 *::-webkit-scrollbar-track {
-  background: rgb(255, 255, 255);
+  display: none;
 }
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: #303960;
+  display: none;
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: #515b88;
+  display: none;
 }
