@@ -86,7 +86,8 @@ const Simulation = (props) => {
     stage_count:number;
     x:number; y:number;
 
-    image = new Image();
+    current_stage_image = new Image();
+    next_stage_image = new Image();
 
     constructor(emissions:number, x:number, y:number){
       this.stage_count = Math.floor(emissions / 10000) > 10 ? 10 : Math.floor(emissions / 10000);
@@ -95,11 +96,21 @@ const Simulation = (props) => {
     }
 
     Draw(context:CanvasRenderingContext2D, distance:number){
-      console.log(distance)
+      let frame = distance - 1;
+      let frames_per_stage = 2000 / this.stage_count;
+      let current_stage = Math.floor(frame / frames_per_stage) + 1;
+      let image_opacity = (frame - ((current_stage - 1) * frames_per_stage)) / frames_per_stage;
+
       context.save();
-      let stage = Math.floor(((distance - 1) / (2000 / this.stage_count))) + 1;
-      this.image.src = `../images/tree-${stage}.png`;
-      context.drawImage(this.image, this.x, this.y);
+      
+      this.current_stage_image.src = `../images/tree-${current_stage}.png`;
+      context.drawImage(this.current_stage_image, this.x, this.y);
+
+      if (current_stage !== 10) {
+        this.next_stage_image.src = `../images/tree-${current_stage + 1}.png`;
+        context.globalAlpha = Number(image_opacity.toFixed(2));
+        context.drawImage(this.next_stage_image, this.x, this.y);
+      }
       context.restore();
     }
   }
@@ -117,7 +128,6 @@ const Simulation = (props) => {
         let route = Math.floor(i / (this.vehicle_count / 4));
         if (i !== 0) {
           if (this.vehicles[i - 1].route !== route) {
-            console.log('Routes doesnt match!')
             route_vehicles = []
             space_between_cars = []
           }
@@ -172,12 +182,6 @@ const Simulation = (props) => {
       this.trees.forEach(
         t => t.Draw(context, distance)
       )
-
-      for(let i = 1; i < 11; i++) {
-        const image = new Image();
-        image.src = `../images/tree-${i}.png`;
-        context.drawImage(image, -200, 0);
-      }
     }
   }
 
