@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "../styles/simulation.module.css";
 import Form from "../components/Form";
 import Simulation from "../components/Simulation.tsx";
-import Canvas from "../components/Canvas.tsx";
 
 export default function Home() {
   const [values, setValues] = useState({});
