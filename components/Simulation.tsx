@@ -5,7 +5,6 @@ import React, { useEffect, useRef } from "react";
 
 const Simulation = (props) => {
   const canvasRef = useRef(null);
-
   // Utility functions
   function getRandomFloat(min: number, max: number): number {
     return Math.random() * (max - min) + min;
@@ -102,7 +101,7 @@ const Simulation = (props) => {
 
     Draw(context: CanvasRenderingContext2D, distance: number) {
       let frame = distance - 1;
-      let frames_per_stage = 2000 / this.stage_count;
+      let frames_per_stage = 40 * 60;
       let current_stage = Math.floor(frame / frames_per_stage) + 1;
       let image_opacity =
         (frame - (current_stage - 1) * frames_per_stage) / frames_per_stage;
@@ -223,12 +222,13 @@ const Simulation = (props) => {
 
       animationFrameId = window.requestAnimationFrame(render);
     };
-    render();
-
+    if (props.animationState == "processing") {
+      render();
+    }
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [props.animationState]);
 
   return <canvas ref={canvasRef} {...props} />;
 };
