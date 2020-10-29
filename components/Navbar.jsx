@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 
 export default function Navbar() {
   const router = useRouter();
-
-  let className;
   if (router.pathname === "/about") {
     className = `${styles.active}`;
   } else if (router.pathname === "/") {
