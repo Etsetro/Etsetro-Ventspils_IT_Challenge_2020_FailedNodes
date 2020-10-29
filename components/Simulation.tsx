@@ -1,6 +1,6 @@
-import "../styles/simulation.module.css";
 import { Line } from "react-chartjs-2";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "../styles/simulation.module.css";
 
 const Simulation = (props) => {
   const [chartProps, setChartProps] = useState({
@@ -244,35 +244,32 @@ const Simulation = (props) => {
 
   return (
     <section
-      className={"simulation"}
+      className={styles.simulation}
       style={{
         background:
-          props.animationState == "processing" ? "#abe84f" : "#ffffff",
-        overflow: "scroll",
-        height: "calc(100vh - 100px)",
+          props.animationState == "processing"
+            ? "rgb(230, 230, 230)"
+            : "#ffffff",
       }}
     >
-      <div className="animation-container">
+      <div className={styles["animation-container"]}>
         {props.animationState == "processing" && (
           <canvas ref={canvasRef} style={{ width: "100%", float: "right" }} />
         )}
       </div>
       <div
-        style={{
-          display: !props.chartData.labels ? "none" : "block",
-          padding: "60px",
-          height: "400px",
-        }}
+        className={styles.chart}
+        style={
+          props.animationState == "processing"
+            ? { display: "block" }
+            : { display: "none" }
+        }
       >
         <Line
           data={props.chartData}
-          height={150}
           options={{
-            scales: {
-              ticks: {
-                fontColor: "black",
-              },
-            },
+            responsive: true,
+            maintainAspectRatio: false,
             tooltips: {
               displayColors: false,
               titleFontFamily: "Poppins",
@@ -339,89 +336,31 @@ const Simulation = (props) => {
       </div>
 
       {props.animationState === "complete" && (
-        <div style={{ padding: "60px", marginTop: "20px" }}>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
-              Grams of CO2 per year(mi)
-            </h3>
+        <div className={styles.results}>
+          <div className={styles.row}>
+            <h3>Grams of CO2 per year(mi)</h3>
             <h4>{props.values.gMiYear} g/mi</h4>
           </div>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
-              Grams of CO2 per year(km)
-            </h3>
+          <div className={styles.row}>
+            <h3>Grams of CO2 per year(km)</h3>
             <h4>{Math.round(props.values.gKmYear * 100) / 100} g/km</h4>
           </div>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
-              Tons of CO2 per year
-            </h3>
+          <div className={styles.row}>
+            <h3>Tons of CO2 per year</h3>
             <h4>{Math.round(props.values.tYear * 100) / 100}</h4>
           </div>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
-              Tons of CO2 in selected period
-            </h3>
+          <div className={styles.row}>
+            <h3>Tons of CO2 in selected period</h3>
             <h4>{Math.round(props.values.total * 100) / 100}</h4>
           </div>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
+          <div className={styles.row}>
+            <h3>
               Grown trees required to completely compensate yearly emissions
             </h3>
             <h4>~{Math.round(props.values.treesRequired)} trees</h4>
           </div>
-          <div className="row">
-            <h3
-              style={{
-                background: "#303960",
-                display: "inline-block",
-                color: "white",
-                padding: "10px",
-                marginBottom: "0",
-              }}
-            >
-              Space the trees would need
-            </h3>
+          <div className={styles.row}>
+            <h3>Space the trees would need</h3>
             <h4>~{Math.round(props.values.treeSpaceRequired)} ha</h4>
           </div>
         </div>
