@@ -247,7 +247,8 @@ const Simulation = (props) => {
       className={styles.simulation}
       style={{
         background:
-          props.animationState == "processing"
+          props.animationState == "processing" ||
+          props.animationState == "complete"
             ? "rgb(230, 230, 230)"
             : "#ffffff",
       }}
@@ -260,7 +261,8 @@ const Simulation = (props) => {
       <div
         className={styles.chart}
         style={
-          props.animationState == "processing"
+          props.animationState == "processing" ||
+          props.animationState == "complete"
             ? { display: "block" }
             : { display: "none" }
         }
