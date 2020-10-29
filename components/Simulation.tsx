@@ -309,9 +309,30 @@ const Simulation = (props) => {
               labels: {
                 fontColor: "black",
                 fontFamily: "Poppins",
+                fontStyle: "normal",
                 fontSize: chartProps.legendSize,
                 padding: 20,
               },
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: true,
+                  ticks: {
+                    fontColor: "black",
+                    fontFamily: "Poppins",
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  display: true,
+                  ticks: {
+                    fontColor: "black",
+                    fontFamily: "Poppins",
+                  },
+                },
+              ],
             },
           }}
         />
