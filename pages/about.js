@@ -10,7 +10,9 @@ export default function About() {
       </div>
       <div className={styles["bottom-container"]}>
         <div className={styles.content}>
-          <h1>Our team</h1>
+          <h1>Team "Failed Nodes"</h1>
+          <h2 className={styles.mentor}>Lienīte Zorģe</h2>
+          <h3 className={styles.mentor}>Mentor</h3>
           <ul className={styles.credentials}>
             <li>
               <h2>Kristaps Mihelsons</h2>

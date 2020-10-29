@@ -68,6 +68,9 @@
 .techimg {
   width: 150px;
 }
+.mentor {
+  text-align: center;
+}
 
 @media only screen and (max-width: 1200px) {
   .credentials {
@@ -101,6 +104,9 @@
   }
   .computer:nth-child(2) {
     width: 125px;
+  }
+  .about h3 {
+    font-size: 18px;
   }
   .about h2 {
     font-size: 20px;
