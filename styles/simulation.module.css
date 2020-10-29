@@ -34,11 +34,11 @@
 }
 .form-widget-container {
   margin: 20px 0;
-  position: relative;
+  position: static;
 }
 .form-widget {
   background-color: #e5e5e5;
-  position: relative;
+  position: static;
   border: 0;
   padding: 15px 20px;
   border-radius: 10px;
