@@ -20,6 +20,7 @@ a {
 }
 
 .app {
+  overflow-x: hidden;
   display: grid;
   grid-template-rows: auto 1fr;
   font-family: "Poppins", "PT Serif", sans-serif;
@@ -27,6 +28,7 @@ a {
 }
 
 .info {
+  position: relative;
   padding: 20px 0;
   background: #303960;
   color: white;

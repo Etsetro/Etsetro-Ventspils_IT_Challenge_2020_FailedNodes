@@ -9,9 +9,7 @@ export default function Home() {
   const [chartData, setChartData] = useState({});
   const [animationState, setAnimationState] = useState(false);
   return (
-    <section
-      className={isOpen ? styles.noscroll : styles["simulation-section"]}
-    >
+    <section className={styles["simulation-section"]}>
       {isOpen && (
         <div className={styles.overlay} onClick={(e) => setIsOpen(false)}></div>
       )}

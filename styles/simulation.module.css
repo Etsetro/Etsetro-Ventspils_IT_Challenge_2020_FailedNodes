@@ -1,4 +1,5 @@
 .simulation-section {
+  position: relative;
   background: white;
   width: 100%;
   display: flex;
