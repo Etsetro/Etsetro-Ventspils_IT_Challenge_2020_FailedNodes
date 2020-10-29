@@ -112,7 +112,6 @@ const Simulation = (props) => {
         context.drawImage(this.next_stage_image, this.x, this.y);
       }
       context.restore();
-      console.log(frame, current_stage);
     }
   }
 
@@ -180,7 +179,6 @@ const Simulation = (props) => {
           y = getRandomInt((height / 3) * 2 + 50, height - 127);
         }
         this.trees.push(new Tree(emmisions, x, y));
-        console.log(emmisions);
       }
     }
 
