@@ -5,7 +5,8 @@
   flex-wrap: wrap;
   overflow: auto;
 }
-.simulation-section > section {
+.simulation,
+.form {
   flex: 1 1 600px;
   padding: 60px;
   width: 100px;
@@ -136,11 +137,29 @@
 .simulation {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  height: calc(100vh - 100px);
 }
 
-.simulation canvas {
+.chart {
+  padding: 60px;
+}
+.chart canvas {
   min-height: 400px;
-  position: absolute;
+}
+.results {
+  padding: 0px 60px 60px 60px;
+}
+.results h3 {
+  background: #303960;
+  display: inline-block;
+  color: white;
+  padding: 10px;
+  font-weight: 500;
+}
+.results h4 {
+  margin-top: 0;
+  font-size: 18px;
 }
 
 div.error {
@@ -192,6 +211,9 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
     width: 100%;
     column-gap: 50px;
   }
+  .chart {
+    padding: 30px;
+  }
   .simulation,
   .form {
     flex: 1 1 600px;
@@ -200,5 +222,11 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
   }
   .simulation canvas {
     min-height: 200px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .simulation {
+    height: auto;
   }
 }
