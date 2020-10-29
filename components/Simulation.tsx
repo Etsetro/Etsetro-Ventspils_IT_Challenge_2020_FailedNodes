@@ -3,6 +3,10 @@ import { Line } from "react-chartjs-2";
 import React, { useEffect, useRef } from "react";
 
 const Simulation = (props) => {
+  const [chartProps, setChartProps] = useState({
+    titleSize: 26,
+    legendSize: 18,
+  });
   const canvasRef = useRef(null);
   // Utility functions
   function getRandomFloat(min: number, max: number): number {
@@ -192,6 +196,14 @@ const Simulation = (props) => {
     }
   }
   useEffect(() => {
+    if (window !== undefined) {
+      if (window.innerWidth < 670) {
+        setChartProps({
+          titleSize: 14,
+          legendSize: 14,
+        });
+      }
+    }
     const canvas = canvasRef.current;
     let context;
     if (canvas !== null && canvas !== undefined) {
@@ -284,7 +296,7 @@ const Simulation = (props) => {
               text: "Emission in selected time period",
               display: true,
               fontFamily: "Poppins",
-              fontSize: 28,
+              fontSize: chartProps.titleSize,
               fontColor: "black",
               padding: 20,
             },
@@ -297,8 +309,7 @@ const Simulation = (props) => {
               labels: {
                 fontColor: "black",
                 fontFamily: "Poppins",
-                fontStyle: "bold",
-                fontSize: 14,
+                fontSize: chartProps.legendSize,
                 padding: 20,
               },
             },
