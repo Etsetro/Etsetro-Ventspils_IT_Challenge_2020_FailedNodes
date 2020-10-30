@@ -21,14 +21,12 @@ a {
 
 .app {
   overflow-x: hidden;
-  display: grid;
-  grid-template-rows: auto 1fr;
   font-family: "Poppins", "PT Serif", sans-serif;
   height: 100vh;
 }
 
 .info {
-  position: relative;
+  position: fixed;
   padding: 20px 0;
   background: #303960;
   color: white;
@@ -36,14 +34,15 @@ a {
   font-size: 14px;
   text-align: center;
   margin: 0;
+  width: 100%;
   display: none;
   overflow: hidden;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
 }
 
 @media only screen and (max-width: 740px) {
-  .app {
-    grid-template-rows: auto 1fr 60px;
-  }
   .info {
     display: initial;
   }

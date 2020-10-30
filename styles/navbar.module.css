@@ -1,6 +1,7 @@
 .navbar {
-  position: relative;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background-color: #303960;
   display: flex;
@@ -9,6 +10,7 @@
   color: white;
   height: 100px;
   padding: 0 40px;
+  z-index: 2;
 }
 
 .navbar ul {
@@ -33,7 +35,7 @@
 }
 .navbar p {
   font-family: "PT Serif";
-  font-size: 14px;
+  font-size: 18px;
   text-align: right;
   display: inline-block;
   margin: 0;

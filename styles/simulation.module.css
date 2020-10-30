@@ -5,6 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
+  padding-top: 100px;
 }
 .simulation,
 .form {
@@ -180,6 +181,12 @@ input.form-widget[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
+@media only screen and (max-width: 740px) {
+  .simulation-section {
+    padding-bottom: 60px;
+    padding-top: 80px;
+  }
+}
 @media only screen and (max-width: 670px) {
   .form h1 {
     font-size: 18px;
