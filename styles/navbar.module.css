@@ -1,7 +1,4 @@
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   background-color: #303960;
   display: flex;
@@ -10,7 +7,7 @@
   color: white;
   height: 100px;
   padding: 0 40px;
-  z-index: 2;
+  overflow: hidden;
 }
 
 .navbar ul {

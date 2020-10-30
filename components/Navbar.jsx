@@ -14,12 +14,12 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <ul>
-        <Link href="/">
+        <Link href="/" scroll>
           <a className={router.pathname === "/" ? styles.active : ""}>
             Simulation
           </a>
         </Link>
-        <Link href="about">
+        <Link href="about" scroll>
           <a className={router.pathname === "/about" ? styles.active : ""}>
             About us
           </a>

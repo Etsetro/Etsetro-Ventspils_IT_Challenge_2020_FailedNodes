@@ -3,11 +3,12 @@ import styles from "../styles/simulation.module.css";
 import Form from "../components/Form";
 import Simulation from "../components/Simulation.tsx";
 
-export default function Home() {
+export default function Home({ scrollPos }) {
   const [values, setValues] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [chartData, setChartData] = useState({});
   const [animationState, setAnimationState] = useState(false);
+
   return (
     <section className={styles["simulation-section"]}>
       {isOpen && (

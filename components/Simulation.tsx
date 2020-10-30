@@ -340,20 +340,20 @@ const Simulation = (props) => {
       {props.animationState === "complete" && (
         <div className={styles.results}>
           <div className={styles.row}>
-            <h3>Grams of CO2 per year(mi)</h3>
+            <h3>Sum of all vehicle emissions per mile</h3>
             <h4>{props.values.gMiYear} g/mi</h4>
           </div>
           <div className={styles.row}>
-            <h3>Grams of CO2 per year(km)</h3>
+            <h3>Sum of all vehicle emissions per kilometre</h3>
             <h4>{Math.round(props.values.gKmYear * 100) / 100} g/km</h4>
           </div>
           <div className={styles.row}>
             <h3>Tons of CO2 per year</h3>
-            <h4>{Math.round(props.values.tYear * 100) / 100}</h4>
+            <h4>{Math.round(props.values.tYear * 100) / 100} t</h4>
           </div>
           <div className={styles.row}>
             <h3>Tons of CO2 in selected period</h3>
-            <h4>{Math.round(props.values.total * 100) / 100}</h4>
+            <h4>{Math.round(props.values.total * 100) / 100} t</h4>
           </div>
           <div className={styles.row}>
             <h3>

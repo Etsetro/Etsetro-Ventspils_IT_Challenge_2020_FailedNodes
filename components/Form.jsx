@@ -88,12 +88,12 @@ export default function Form({
     });
     for (let i = 0; i < emissionByYear.length; i++) {
       if (emissionByYear[i][0] === year) {
-        const gramsKmYear = emissionByYear[i][1] * 1.609344 * carCount;
+        const gramsKmYear = (emissionByYear[i][1] / 1.609344) * carCount;
         const tonPerYear = (gramsKmYear * roadLength * 365 * 24) / 1000000;
         const totalEmissionTons = tonPerYear * realtimeLength;
         const treesRequired = (totalEmissionTons * 1000000) / 21;
         const dataObj = {
-          gMiYear: emissionByYear[i][1],
+          gMiYear: emissionByYear[i][1] * carCount,
           gKmYear: gramsKmYear,
           tYear: tonPerYear,
           total: totalEmissionTons,

@@ -23,10 +23,11 @@ a {
   overflow-x: hidden;
   font-family: "Poppins", "PT Serif", sans-serif;
   height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .info {
-  position: fixed;
   padding: 20px 0;
   background: #303960;
   color: white;
@@ -37,12 +38,12 @@ a {
   width: 100%;
   display: none;
   overflow: hidden;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
 }
 
 @media only screen and (max-width: 740px) {
+  .app {
+    grid-template-rows: auto 1fr 60px;
+  }
   .info {
     display: initial;
   }
