@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow: hidden;
   margin-top: 100px;
 }
 .simulation,
