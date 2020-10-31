@@ -23,8 +23,6 @@ a {
   overflow-x: hidden;
   font-family: "Poppins", "PT Serif", sans-serif;
   height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr;
 }
 
 .info {

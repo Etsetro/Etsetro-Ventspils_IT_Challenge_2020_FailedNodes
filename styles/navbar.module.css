@@ -8,6 +8,12 @@
   height: 100px;
   padding: 0 40px;
   overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  z-index: 1;
 }
 
 .navbar ul {
